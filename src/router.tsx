@@ -3,6 +3,7 @@ import App from "./App";
 import StartSida from "./Pages/StartSida";
 import AllTheDrivers from "./Pages/AllTheDrivers"
 import InfoAboutADriver from "./Pages/InfoAboutADriver"
+import NotFound from "./Pages/NotFoundPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -10,6 +11,7 @@ export const router = createBrowserRouter(
       <Route index element={<StartSida />} />
       <Route path="/all" element={<AllTheDrivers />} />
       <Route path="/driver/:id" element={<InfoAboutADriver />} />
+      <Route path="*" element={<NotFound />} /> {/* Catch all unmatched routes */}
     </Route>
   )
 );

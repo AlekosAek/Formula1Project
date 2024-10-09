@@ -1,0 +1,19 @@
+.mainClass{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin:5em;
+}
+
+.colour{
+  display: flex;
+}
+
+.spacing{
+  margin: 0.4em;
+}
+
+.mainClass>img{
+  width: 15em;
+}

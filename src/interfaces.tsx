@@ -12,3 +12,14 @@ export interface IDriver{
   style?: string;
 
 }
+
+export interface IDriverInfo{
+  broadcastName:string;
+  fullName:string
+  img:string;
+  id:number;
+  country_code:string;
+  nameAcro:string;
+  teamColour:string;
+  teamName:string
+}
