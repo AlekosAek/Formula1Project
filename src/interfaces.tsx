@@ -23,3 +23,10 @@ export interface IDriverInfo{
   teamColour:string;
   teamName:string
 }
+ 
+export interface IAllDriversCards {
+  name: string;
+  id: number; // Change to string if IDs are strings
+  image: string;
+  style?: string;
+}

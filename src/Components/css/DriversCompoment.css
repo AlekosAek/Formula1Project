@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap");
+
+.DriversCompoment{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  height: 450px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 228, 196, 0.2);
+  box-shadow: 0px 12px 24px rgba(49, 71, 89, 0.15),
+    0px 6px 12px rgba(49, 71, 89, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.8s ease, box-shadow 0.8s ease, background 0.8s ease;
+  font-weight: bold;
+  text-decoration: none;
+  color:black
+}

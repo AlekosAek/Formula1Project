@@ -12,7 +12,7 @@ function InfoAboutDriver() {
     fullName: "",
     img: "",
     id: 0,
-    countryCode: "",
+    country_code: "",
     nameAcro: "",
     teamColour: "",
     teamName: "",
@@ -53,7 +53,7 @@ function InfoAboutDriver() {
           fullName: driver.full_name,
           img: driver.headshot_url,
           id: driver.driver_number,
-          countryCode: driver.country_code,
+          country_code: driver.country_code,
           nameAcro: driver.name_acronym,
           teamColour: driver.team_colour,
           teamName: driver.team_name,
@@ -75,7 +75,7 @@ function InfoAboutDriver() {
       <h1 className="spacing" >{activeDriver.fullName}</h1>
       <img className="spacing" src={activeDriver.img} alt={`${activeDriver.fullName} headshot`} />
       <h3 className="spacing">Broadcast name {activeDriver.broadcastName}</h3>
-      <p className="spacing">Country Code: {activeDriver.countryCode}</p>
+      <p className="spacing">Country Code: {activeDriver.country_code}</p>
       <p className="spacing">Driver number:{activeDriver.id}</p>
       <p className="spacing">Name acronym :{activeDriver.nameAcro}</p>
       <div className="colour">

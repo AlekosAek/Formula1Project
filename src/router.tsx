@@ -9,7 +9,7 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<StartSida />} />
-      <Route path="/all" element={<AllTheDrivers />} />
+      <Route path="/AllTheDrivers" element={<AllTheDrivers />} />
       <Route path="/driver/:id" element={<InfoAboutADriver />} />
       <Route path="*" element={<NotFound />} /> {/* Catch all unmatched routes */}
     </Route>
