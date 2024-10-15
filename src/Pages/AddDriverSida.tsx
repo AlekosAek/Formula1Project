@@ -5,7 +5,7 @@ import { IInputDrivers } from "../interfaces"; // Ensure this interface matches 
 function AddDriverSida() {
   const { updateDrivers } = useContext(DriversContext);
   const [name, setName] = useState("");
-  const [id, setId] = useState<number | string>(""); // Use appropriate type
+  const [id, setId] = useState<number>(0); // Use appropriate type
   const [image, setImage] = useState("");
 
   // Handle form submission
@@ -21,7 +21,7 @@ function AddDriverSida() {
     // Create new driver object
     const newDriver: IInputDrivers = {
       name,
-      id: 0, // Fallback to a timestamp if id is not provided
+      id,
       image,
     };
 
@@ -30,7 +30,7 @@ function AddDriverSida() {
 
     // Clear form inputs after submission
     setName("");
-    setId("");
+    setId(0);
     setImage("");
   };
 
@@ -49,10 +49,10 @@ function AddDriverSida() {
 
         <label htmlFor="id">Driver ID </label>
         <input
-          type="text"
+          type="number"
           id="id"
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => setId(parseInt(e.target.value))}
         />
 
         <label htmlFor="image">Driver Image URL:</label>

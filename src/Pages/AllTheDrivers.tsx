@@ -6,6 +6,7 @@ import { DriversContext } from "../Driverscontext"; // Import the context
 function AllTheDriversPage() {
   const { drivers: userDrivers } = useContext(DriversContext); // Get user drivers from context
   const [apiDrivers, setApiDrivers] = useState<IInputDrivers[]>([]);
+  const [allDrivers, setAllDrivers] = useState<IInputDrivers[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,7 @@ function AllTheDriversPage() {
 
           console.log(driversData); // Log unique drivers to check
           setApiDrivers(driversData);
+          setAllDrivers([...userDrivers, ...driversData]);
         } else {
           console.error("Fetched data is not an array");
         }
@@ -46,14 +48,14 @@ function AllTheDriversPage() {
   }, []);
 
   // Combine API drivers with user-added drivers
-  const combinedDrivers = [...apiDrivers, ...userDrivers];
+  // const combinedDrivers = [...apiDrivers, ...userDrivers];
 
   return (
     <section className="AllTheDrivers">
       <h1>All Drivers</h1>
       <section className="myMain">
-        {combinedDrivers.length > 0 ? (
-          combinedDrivers.map((driver, index) => (
+        {allDrivers.length > 0 ? (
+          allDrivers.map((driver, index) => (
             <DriversCompoment
               key={driver.id || index} // Use index as a fallback key if id is not present
               name={driver.name}
