@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { IAllDriversCards } from "../interfaces";
+import { IInputDrivers } from "../interfaces";
 import "./css/DriversCompoment.css";
 
-function DriversCompoment({ name, id, image, style }: IAllDriversCards) {
+function DriversCompoment({ name, id, image, style }: IInputDrivers) {
   return (
     <Link to={`/driver/${id}`} className={style}>
       <article>

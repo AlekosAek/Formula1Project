@@ -24,7 +24,15 @@ export interface IDriverInfo{
   teamName:string
 }
  
-export interface IAllDriversCards {
+/* export interface IAllDriversCards {
+  name: string;
+  id: number; // Change to string if IDs are strings
+  image: string;
+  style?: string;
+} */
+
+ 
+export interface IInputDrivers {
   name: string;
   id: number; // Change to string if IDs are strings
   image: string;
