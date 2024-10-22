@@ -34,7 +34,7 @@ export interface IDriverInfo{
  
 export interface IInputDrivers {
   name: string;
-  id: number; // Change to string if IDs are strings
+  id: number; 
   image: string;
   style?: string;
 }

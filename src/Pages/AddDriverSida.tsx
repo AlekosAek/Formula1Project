@@ -7,7 +7,6 @@ function AddDriverSida() {
   const [name, setName] = useState("");
   const [id, setId] = useState<number>(0); // Use appropriate type
   const [image, setImage] = useState("");
-  const [editDrivers] = useContext(DriversContext);
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {

@@ -4,7 +4,7 @@ import DriversCompoment from "../Components/DriversCompoment";
 import { DriversContext } from "../Driverscontext"; // Import the context
 
 function AllTheDriversPage() {
-  const { drivers: userDrivers } = useContext(DriversContext); // Get user drivers from context
+  const { drivers: userDrivers, deleteDriver } = useContext(DriversContext); // Get user drivers and delete function from context
   const [apiDrivers, setApiDrivers] = useState<IInputDrivers[]>([]);
   const [allDrivers, setAllDrivers] = useState<IInputDrivers[]>([]);
 
@@ -26,16 +26,14 @@ function AllTheDriversPage() {
             )
           ).map(id => data.find(driver => driver.driver_number === id));
 
-          const driversData: IInputDrivers[] = uniqueDrivers
-            .map(driver => ({
-              name: driver.full_name || "Unknown Driver",
-              id: driver.driver_number,
-              image: driver.headshot_url || "fallback-image-url.jpg", // You can use a fallback if needed
-            }))
+          const driversData: IInputDrivers[] = uniqueDrivers.map(driver => ({
+            name: driver.full_name || "Unknown Driver",
+            id: driver.driver_number,
+            image: driver.headshot_url || "fallback-image-url.jpg",
+          }));
 
           console.log(driversData); // Log unique drivers to check
           setApiDrivers(driversData);
-          setAllDrivers([...userDrivers, ...driversData]);
         } else {
           console.error("Fetched data is not an array");
         }
@@ -47,8 +45,10 @@ function AllTheDriversPage() {
     fetchData();
   }, []);
 
-  // Combine API drivers with user-added drivers
-  // const combinedDrivers = [...apiDrivers, ...userDrivers];
+  // Combine API drivers with user-added drivers, update whenever userDrivers or apiDrivers change
+  useEffect(() => {
+    setAllDrivers([...userDrivers, ...apiDrivers]);
+  }, [userDrivers, apiDrivers]);
 
   return (
     <section className="AllTheDrivers">
@@ -56,13 +56,15 @@ function AllTheDriversPage() {
       <section className="myMain">
         {allDrivers.length > 0 ? (
           allDrivers.map((driver, index) => (
-            <DriversCompoment
-              key={driver.id || index} // Use index as a fallback key if id is not present
-              name={driver.name}
-              id={driver.id}
-              image={driver.image}
-              style="DriversCompoment"
-            />
+            <div key={driver.id || index}>
+              <DriversCompoment
+                name={driver.name}
+                id={driver.id}
+                image={driver.image}
+                style="DriversCompoment"
+              />
+              {/* Add the Delete button */}
+            </div>
           ))
         ) : (
           <p>No drivers available.</p>

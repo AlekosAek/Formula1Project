@@ -6,55 +6,85 @@ import { IDriver } from "../interfaces";
 import Drivercard from "../Components/DriverCard";
 
 function StartSida() {
-  const [activeDriver, setActiveDriver] = useState<IDriver>();
+  const [drivers, setDrivers] = useState<IDriver[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
-  const handleOnGetRandomDriver = async () => {
-    let url: string
-    url = "https://api.openf1.org/v1/drivers"
+  // Function to fetch all drivers once
+  const fetchDrivers = async () => {
+    const url = "https://api.openf1.org/v1/drivers";
     const response = await fetch(url);
     const data = await response.json();
+    
     if (data && data.length > 0) {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      const randomDriver = data[randomIndex];
-      setActiveDriver({
-        name: randomDriver.full_name,
-        id: randomDriver.driver_number,
-        image: randomDriver.headshot_url,
-      })
-    }
-  }
-  useEffect(() => {
-    handleOnGetRandomDriver();
-  }, []);
-
-  const navigate = useNavigate();
-  const handleMoreInfoClick = () => {
-    if (activeDriver) {
-      navigate(`/driver/${activeDriver.id}`); // Use the active driver's ID
+      // Map the data to the desired format
+      const formattedDrivers = data.map((driver: any) => ({
+        name: driver.full_name,
+        id: driver.driver_number,
+        image: driver.headshot_url,
+      }));
+      setDrivers(formattedDrivers);
     }
   };
 
+  useEffect(() => {
+    fetchDrivers();
+  }, []);
+
+  // Handle navigating to the next driver
+  const handleNextClick = () => {
+    if (currentIndex < drivers.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  // Handle navigating to the previous driver
+  const handlePrevClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  // Function to handle more info click
+  const handleMoreInfoClick = () => {
+    if (drivers[currentIndex]) {
+      navigate(`/driver/${drivers[currentIndex].id}`);
+    }
+  };
 
   return (
     <>
       <section className="myStartsida">
         <section className="myMain">
-          {activeDriver ?
+          {drivers.length > 0 ? (
             <Drivercard
-              name={activeDriver.name}
-              id={activeDriver.id}
-              image={activeDriver.image}
+              name={drivers[currentIndex].name}
+              id={drivers[currentIndex].id}
+              image={drivers[currentIndex].image}
               style="driver-card"
-
             />
-            : (
-              <p>Loading driver information...</p>
-            )}
+          ) : (
+            <p>Loading driver information...</p>
+          )}
         </section>
-        <section className="myButtonSection" >
-
-          <Button label={"More info"} onClick={handleMoreInfoClick} className="Button" />
-          <Button label={"Show other driver"} onClick={handleOnGetRandomDriver} className="Button" />
+        <section className="myButtonSection">
+          <Button 
+            label={"Previous"} 
+            onClick={handlePrevClick} 
+            className="Button" 
+            disabled={currentIndex === 0} // Disable if at the first driver
+          />
+          <Button 
+            label={"Next"} 
+            onClick={handleNextClick} 
+            className="Button" 
+            disabled={currentIndex === drivers.length - 1} // Disable if at the last driver
+          />
+          <Button 
+            label={"More info"} 
+            onClick={handleMoreInfoClick} 
+            className="Button" 
+          />
         </section>
       </section>
     </>
